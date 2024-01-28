@@ -25,17 +25,29 @@
             <div class="col-sm-3 sidenav">
                 <h4>CRUD</h4>
                 <ul class="nav nav-pills nav-stacked">
-                {% with list_posts_url="/posts/list-posts/" %}
-                <li {% if list_posts_url in request.path %} class="active" {% endif %}>
-                    <a href="{% url 'posts:list-posts' %}">List Posts</a>
-                </li>
-                {% endwith %}
-                
-                {% with create_post_url="/posts/create-post/" %}
-                <li {% if create_post_url in request.path %} class="active" {% endif %}>
-                    <a href="{% url 'posts:create-post' %}">Create Posts</a>
-                </li>
-                {% endwith %}
+                    {% if messages == "Delete Post successfully" %}
+                    <div class="alert alert-success">
+                        <strong>{{ messages }}</strong>
+                    </div>
+                    {% else %}
+                    {% for message in messages %}
+                    <div class="alert alert-success">
+                        <strong>{{ message }}</strong>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% with list_posts_url="/posts/list-posts/" %}
+                    <li {% if list_posts_url in request.path %} class="active" {% endif %}>
+                        <a href="{% url 'posts:list-posts' %}">List Posts</a>
+                    </li>
+                    {% endwith %}
+
+                    {% with create_post_url="/posts/create-post/" %}
+                    <li {% if create_post_url in request.path %} class="active" {% endif %}>
+                        <a href="{% url 'posts:create-post' %}">Create Posts</a>
+                    </li>
+                    {% endwith %}
 
                 </ul><br>
             </div>

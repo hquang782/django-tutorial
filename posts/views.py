@@ -19,7 +19,7 @@ class ListPostView(ListView):
 class CreatePostView(SuccessMessageMixin, CreateView):
     template_name = "posts/create-post.html"
     form_class = CreatePostForm
-    success_message = "Crate Post successfully!"
+    success_message = "Create Post successfully!"
 
 
 class UpdatePostView(SuccessMessageMixin, UpdateView):
@@ -33,3 +33,10 @@ class UpdatePostView(SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return reverse("posts:list-posts", kwargs={})
+
+
+def delete_post(request, pk):
+    post = Post.objects.filter(id=pk)
+    post.delete()
+    context = {"messages": "Delete Post successfully", "posts": Post.objects.all()}
+    return render(request, "posts/list-posts.html", context)
